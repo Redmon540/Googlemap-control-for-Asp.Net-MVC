@@ -1,0 +1,77 @@
+﻿@using Jmelosegui.Mvc.GoogleMap
+@model Jmelosegui.Mvc.GoogleMap.Examples.Controllers.KmlModel
+
+@{
+    ViewBag.Title = "Kml Layer";
+    Layout = "~/Views/Shared/_LayoutExamples.cshtml";
+}
+
+@(
+    Html.GoogleMap()
+    .Name("map")
+    .ApiKey((string)ViewData["GoogleMapApiKey"])
+    .Height(400)
+    .Center(c => c.Latitude(41.875696)
+                   .Longitude(-87.624207))
+    .Zoom(11)
+    .Layers(l => l.AddKmlLayer()
+                  .Clickable(Model.Clickable)
+                  .PreserveViewport(Model.PreserveViewport)
+                  .SuppressInfoWindows(Model.SuppressInfoWindows)
+                  .ScreenOverlays(Model.ScreenOverlays)
+                  .Url(Model.Url)
+                  .ZIndex(Model.ZIndex)
+            )
+)
+<br />
+<br />
+<form class="form-horizontal" method="POST" role="form">
+    <h4> Google Map Settings</h4>
+
+    <div class="form-group row">
+        <label for="Url" class="col-sm-1 control-label">Url</label>
+        <div class="col-md-11">
+            @Html.TextBox("Url", null, new { @class = "form-control", id = "Url" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-2 col-md-offset-1">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBox("Clickable")
+                    Clickable
+                </label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBox("PreserveViewport")
+                    Preserve Viewport
+                </label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBox("ScreenOverlays")
+                    Screen Overlays
+                </label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBox("SuppressInfoWindows")
+                    Suppress InfoWindows
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-11 col-md-offset-1">
+            <button type="submit" class="btn btn-primary">Apply</button>
+        </div>
+    </div>
+</form>

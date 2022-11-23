@@ -1,0 +1,41 @@
+﻿@using Jmelosegui.Mvc.GoogleMap
+@model string
+
+@{
+    ViewBag.Title = "GoogleMap Version";
+}
+
+<div style="height: 500px; border: solid 1px #cccccc">
+    @(Html.GoogleMap()
+          .Name("map")
+          .ApiKey((string)ViewData["GoogleMapApiKey"])
+          .Version(ViewData["version"] as string)
+          .Height(500))
+</div>
+
+<br />
+
+<form class="form-horizontal" role="form">
+    <h4> Google Map Settings</h4>
+    <div class="form-group row">
+        <label for="width" class="col-sm-2 control-label">Version</label>
+        <div class="col-sm-4">
+            @Html.DropDownList("version", 
+                                new List<SelectListItem>
+                                {
+                                    new SelectListItem {Text = "Default", Value = ""},
+                                    new SelectListItem {Text = "beta", Value = "beta"},
+                                    new SelectListItem {Text = "3.49", Value = "3.49"},
+                                    new SelectListItem {Text = "3.48", Value = "3.48"},
+                                }, 
+                                new { @class = "form-control", id = "mapHeight" }
+                              )
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-offset-1 col-sm-10">
+            <button type="submit" class="btn btn-primary">Apply</button>
+        </div>
+    </div>
+</form>
+

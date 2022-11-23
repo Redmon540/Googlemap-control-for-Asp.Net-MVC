@@ -1,0 +1,160 @@
+﻿@model Jmelosegui.Mvc.GoogleMap.Examples.Controllers.UIControlViewModel
+
+@{
+    ViewBag.Title = "UI Controls";
+}
+
+@(Html.GoogleMap()
+                  .Name("map")
+                  .ApiKey((string)ViewData["GoogleMapApiKey"])
+                  .Height(500)
+                  .ScaleControlVisible(Model.ShowScaleControl)
+
+                  .PanControlVisible(Model.ShowPanControl)
+                  .PanControlPosition(Model.PanControlPosition)
+
+                  .OverviewMapControlVisible(Model.ShowOverviewMapControl)
+                  .OverviewMapControlOpened(Model.OverviewMapControlOpened)
+
+                  .StreetViewControlVisible(Model.ShowStreetViewControl)
+                  .StreetViewControlPosition(Model.StreetViewControlPosition)
+
+                  .ZoomControlVisible(Model.ShowZoomControl)
+                  .ZoomControlPosition(Model.ZoomControlPosition)
+                  .ZoomControlStyle(Model.ZoomControlStyle)
+                  .ScrollWheel(Model.ScrollWheel)
+
+                  .MapTypeControlVisible(Model.ShowMapType)
+                  .MapTypeId(Model.MapTypeControl)
+                  .MapTypeControlStyle(Model.MapTypeControlStyle)
+                  .MapTypeControlPosition(Model.MapTypeControlPosition)
+
+)
+
+<br />
+
+<form method="POST">
+    <h4> Google Map Settings</h4>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBox("ShowScaleControl", new { id = "mapShowScale", @class = "form-check-input"})
+                    Show scale control
+                </label>
+            </div>
+        </div>
+        <div class="col-md-9">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            <div class="checkbox">
+                <label style="display:inline;">
+                    @Html.CheckBox("ShowOverviewMapControl", new { id = "mapShowOverviewMapControl", @class = "form-check-input" })
+                    Show overviewMap control
+                </label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="checkbox">
+                <label style="display:inline;">
+                    @Html.CheckBox("OverviewMapControlOpened", new { id = "mapOverviewMapControlOpened", @class = "form-check-input" })
+                    Open overviewMap control
+                </label>
+            </div>
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            <div class="form-check form-check-inline">
+                @Html.CheckBox("ShowPanControl", new { id = "mapShowPanControl", @class = "form-check-input" })
+                <label class="form-check-label" for="mapShowPanControl">Show pan control</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="mapPanControlPosition" class="control-label" style="white-space: nowrap;">Position</label>
+            @Html.DropDownList("PanControlPosition", new SelectList(typeof(ControlPosition).GetEnumDataSource(), "Key", "Value"), new { @class = "form-control", id = "mapPanControlPosition" })
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            <div class="checkbox">
+                <label style="display:inline;">
+                    @Html.CheckBox("ShowStreetViewControl", new { id = "mapShowStreetViewControl", @class = "form-check-input" })
+                    Show street view control
+                </label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="mapStreetViewControlPosition" class="control-label" style="white-space: nowrap;">Position</label>
+            @Html.DropDownList("StreetViewControlPosition", new SelectList(typeof(ControlPosition).GetEnumDataSource(), "Key", "Value"), new { @class = "form-control", id = "mapStreetViewControlPosition" })
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            <div class="checkbox">
+                <label style="display:inline;">
+                    @Html.CheckBox("ShowZoomControl", new { id = "mapShowZoomControl", @class = "form-check-input" })
+                    Show zoom control
+                </label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="mapZoomControlPosition" class="control-label" style="white-space: nowrap;">Position</label>
+            @Html.DropDownList("ZoomControlPosition", new SelectList(typeof(ControlPosition).GetEnumDataSource(), "Key", "Value"), new { @class = "form-control", id = "mapZoomControlPosition" })
+        </div>
+        <div class="col-md-3">
+            <label for="mapZoomControlStyle" class="control-label" style="white-space: nowrap;">Style</label>
+            @Html.DropDownList("ZoomControlStyle", new SelectList(typeof(ZoomControlStyle).GetEnumDataSource(), "Key", "Value"), new { @class = "form-control", id = "mapZoomControlStyle" })
+        </div>
+        <div class="col-md-3">
+            <div class="checkbox">
+                <label style="display:inline;">
+                    @Html.CheckBox("ScrollWheel", new { id = "mapScrollWheel", @class = "form-check-input" })
+                    Scroll Wheel
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            <div class="checkbox">
+                <label style="display:inline;">
+                    @Html.CheckBox("ShowMapType", new { id = "mapShowMapTypeControl", @class = "form-check-input" })
+                    Show map type control
+                </label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="mapTypeControlPosition" class="control-label" style="white-space: nowrap;">Position</label>
+            @Html.DropDownList("MapTypeControlPosition", new SelectList(typeof(ControlPosition).GetEnumDataSource(), "Key", "Value"), new { @class = "form-control", id = "mapTypeControlPosition" })
+        </div>
+
+        <div class="col-md-3">
+            <label for="mapTypeStyle" class="control-label" style="white-space: nowrap;">Style</label>
+            @Html.DropDownList("MapTypeControlStyle", new SelectList(typeof(MapTypeControlStyle).GetEnumDataSource(), "Key", "Value"), new { @class = "form-control", id = "mapTypeStyle" })
+        </div>
+
+        <div class="col-md-3">
+            <label for="mapType" class="control-label" style="white-space: nowrap;">Type</label>
+            @Html.DropDownList("MapTypeControl", new SelectList(typeof(MapType).GetEnumDataSource(), "Key", "Value"), new { @class = "form-control", id = "mapType" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">Apply</button>
+        </div>
+    </div>
+</form>
+
+

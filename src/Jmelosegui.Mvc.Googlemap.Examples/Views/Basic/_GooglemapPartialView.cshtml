@@ -1,0 +1,16 @@
+﻿@using Jmelosegui.Mvc.GoogleMap
+
+@{
+    Html.GoogleMap()
+        .Name("map")
+        .ApiKey((string)ViewData["GoogleMapApiKey"])
+        .Markers(marker => marker.Add()
+            .Window(w => w.Add()
+                .Content(                    
+                    @<text>"Hello PartialView" @Model</text>
+            )))
+        .Render();
+}
+
+@(Html.GoogleMap().ScriptRegistrar())
+    

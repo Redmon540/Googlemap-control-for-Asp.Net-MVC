@@ -1,0 +1,40 @@
+﻿@using Jmelosegui.Mvc.GoogleMap
+@model dynamic
+
+@{
+    ViewBag.Title = "First Look";
+}
+
+<div style="height: 500px; border: solid 1px #cccccc">
+    @(
+        Html.GoogleMap()
+            .Name("map")
+            .ApiKey((string)ViewData["GoogleMapApiKey"])
+            .Width((int)ViewData["width"])
+            .Height((int)ViewData["height"])            
+    )
+
+</div>
+
+<br />
+
+<form class="form-horizontal" role="form">
+    <h4> Google Map Settings</h4>
+    <div class="form-group row">
+        <label for="width" class="col-sm-2 control-label">Width (px)</label>
+        <div class="col-sm-4">
+            @Html.TextBox("width", null, new { @class = "form-control", id = "mapHeight", placeholder = "Enter an integer value", @type = "number" })
+            <label>0 for automatic with</label>
+        </div>
+        <label for="height" class="col-sm-2 control-label">Height (px)</label>
+        <div class="col-sm-4">
+            @Html.TextBox("height", null, new { @class = "form-control", id = "mapHeight", placeholder = "Enter an integer value", @type = "number" })
+            <label>0 for automatic height</label>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-offset-1 col-sm-10">
+            <button type="submit" class="btn btn-primary">Apply</button>
+        </div>
+    </div>
+</form>

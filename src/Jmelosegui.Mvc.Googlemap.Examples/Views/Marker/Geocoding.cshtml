@@ -1,0 +1,71 @@
+﻿@using Jmelosegui.Mvc.GoogleMap
+@using Jmelosegui.Mvc.GoogleMap.Examples.App_Data
+@model IEnumerable<Jmelosegui.Mvc.GoogleMap.Examples.App_Data.RegionInfo>
+
+@{
+    ViewBag.Title = "Geocode";
+}
+<div id="message" style="display: none" class="alert alert-success" role="alert">Load markers using Geocoding completed !!!</div>
+<div class="progress">
+    <div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+@{
+    Html.GoogleMap()
+        .Name("map")
+        .ApiKey((string)ViewData["GoogleMapApiKey"])
+        .Height(600)
+        .Center(c => c.Latitude(40)
+                      .Longitude(-3))
+        .ClientEvents(e =>
+            e.OnMarkersGeocodingCompleted("MarkerFromAddressCompleted")
+             .OnMarkersGeocodingProgress("OnProgress")
+        )
+        .MarkersGeocoding(true)                      
+        .BindTo<RegionInfo, Marker>
+        (Model, mappings => mappings.For<RegionInfo>
+            (
+                binding => binding.ItemDataBound
+                    (
+                        (marker, regionInfo) =>
+                        {
+                            marker.Address = regionInfo.Address;
+                            marker.Title = regionInfo.Title;
+                            marker.ZIndex = regionInfo.ZIndex;
+
+                            marker.Window = new InfoWindow(marker)
+                            {
+                                Template =
+                                {
+                                    Html = regionInfo.InfoWindowContent
+                                }
+                            };
+                        }
+                    )
+            )
+        )
+        .FitToMarkersBounds(true)
+        .Render();
+}
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+        const messageElement = document.getElementById('message');
+        const progressBar = document.getElementById('progressBar');
+
+        function MarkerFromAddressCompleted(args) {
+            messageElement.style.display = 'block';
+        }
+
+        function OnProgress(args) {
+            var strValue = args.value + '%';            
+            progressBar.style.width = strValue;
+            progressBar.textContent = strValue;
+            if (args.status !== google.maps.GeocoderStatus.OK) {
+                alert("Error loading address " + args.address + ". Reason: " + args.status);
+            }
+        }
+
+    </script>
+}
